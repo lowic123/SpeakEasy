@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <title>SpeakEasy - Improve Your Speech</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Roboto, sans-serif;
+      background: url('../background.jpg');
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .TopNavMenu{
+      background: #dcd6cc;
+      overflow: hidden;
+      display: flex;
+      border-block: #222222 solid 1px;
+    }
+    .TopNavMenu a{
+      flex: 1;
+      float: left;
+      color: #3a5c7a;
+      text-align: center;
+      padding: 14px 15px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    .TopNavMenu a:hover{
+      background-color: #ddd;
+      color: #000000;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 70px;
+      font-family: Roboto, sans-serif;
+    }
+
+    .subheader{
+      text-align: left;
+      font-family: Roboto, sans-serif;
+    }
+
+
+    h1 {
+      color: #3a5c7a;
+      margin-bottom: 10px;
+      font-size: 70px;
+      text-shadow: #222222 2px 2px 2px;
+    }
+
+    h2{
+      color: #3a5c7a;
+      margin-bottom: 10px;
+      font-size: 45px;
+      text-shadow: #000000 1px 1px 1px;
+
+    }
+
+    .tagline {
+      color: #7f8c8d;
+      font-size: 18px;
+      font-family: Roboto, sans-serif;
+    }
+
+    .upload-section {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .QuestionAI-section {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .QuestionAI-text{
+      color: black;
+      font-size: 20px;
+      font-family: Roboto, sans-serif;
+    }
+
+    .upload-area {
+      border: 3px dashed #3498db;
+      border-radius: 8px;
+      padding: 60px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: #f8fbff;
+    }
+
+    .upload-area:hover {
+      border-color: #c50e0e;
+      background: #f0f8ff;
+    }
+
+    .upload-area.dragover {
+      border-color: #27ae60;
+      background: #f0fff4;
+    }
+
+
+    .upload-text {
+      color: #34495e;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .upload-hint {
+      color: #95a5a6;
+      font-size: 14px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .video-preview {
+      margin-top: 30px;
+      display: none;
+    }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btnQuestion {
+      display: flex;
+      background: #3498db;
+      color: white;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 600;
+      margin-top: 20px;
+      align-content: flex-end;
+    }
+
+    .btnQuestion:hover {
+      background: #2980b9;
+    }
+
+    .btn {
+      background: #3498db;
+      color: white;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background: #2980b9;
+    }
+
+    .btn:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+    }
+
+    .analyzing {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      display: none;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid #ecf0f1;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .feedback-section {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .feedback-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #ecf0f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 48px;
+      font-weight: bold;
+      color: #2c3e50;
+      position: relative;
+    }
+
+    .score-label {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-top: 10px;
+    }
+
+    .feedback-item {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #3498db;
+    }
+
+    .feedback-item h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .feedback-item p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .metric-label {
+      color: #34495e;
+      font-weight: 500;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .tip {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 15px;
+    }
+
+    .tip strong {
+      color: #856404;
+    }
+
+    .reset-btn {
+      background: #95a5a6;
+      margin-top: 30px;
+    }
+
+    .reset-btn:hover {
+      background: #7f8c8d;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<div class="TopNavMenu">
+  <a href="Home.html">Home</a>
+  <a href="BasicAnalysis.html">Basic Analysis</a>
+  <a class="active" href="Behavioral-Interview.html">Behavioral Interview</a>
+  <a href="Technical-Interview.html">Technical Interview</a>
+</div>
+
+<br>
+
+<div class="container">
+
+  <div class="header">
+
+    <h1>SpeakEasy</h1>
+    <p class="tagline">Get instant feedback on your speech and presentation</p>
+  </div>
+
+  <div>
+    <button class="btnQuestion" id="NewQuestionBtn">New Question</button>
+  </div>
+
+  <div class ="subheader">
+    <h2>Technical Interview</h2>
+  </div>
+
+  <div class="QuestionAI-section">
+    <div class="QuestionAI-text">
+      <h3><strong>Explain</strong> your logic and <strong>Optimize</strong> your thought process.</h3> <br>
+      <p><b><u>Question from AI: </u></b></p> <br>
+      <p class="QuestionAI-text" id="displayQuestion">Loading question...</p>
+    </div>
+  </div>
+
+
+  <div class="upload-section" id="uploadSection">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-text">Click to upload or drag and drop your video</div>
+      <div class="upload-hint">Maximum 2 minutes • MP4, MOV, WebM</div>
+      <input type="file" id="videoInput" accept="video/*">
+    </div>
+
+    <div class="video-preview" id="videoPreview">
+      <video id="videoPlayer" controls></video>
+      <button class="btn" id="analyzeBtn">Analyze My Speech</button>
+    </div>
+  </div>
+
+  <div class="analyzing" id="analyzingSection">
+    <h2>Analyzing your speech...</h2>
+    <div class="spinner"></div>
+    <p>This may take a moment. We're listening carefully!</p>
+  </div>
+
+  <div class="feedback-section" id="feedbackSection">
+    <div class="feedback-header">
+      <h2>Your Speech Analysis</h2>
+      <div class="score-circle" id="scoreCircle">--</div>
+      <div class="score-label">Overall Score</div>
+    </div>
+
+    <div id="feedbackContent">
+      <!-- Feedback will be inserted here -->
+    </div>
+
+    <button class="btn reset-btn" onclick="resetApp()">Ask Another Question</button>
+  </div>
+</div>
+
+<script>
+
+
+  let selectedFile = null;
+
+  // ===== DRAG AND DROP =====
+  const uploadArea = document.getElementById('uploadArea');
+  const videoInput = document.getElementById('videoInput');
+
+  uploadArea.addEventListener('click', () => videoInput.click());
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('video/')) {
+      handleVideoUpload(file);
+    }
+  });
+
+  videoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleVideoUpload(file);
+    }
+  });
+
+  // ===== VIDEO HANDLING =====
+  function handleVideoUpload(file) {
+    // Check video duration
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+
+    video.onloadedmetadata = function() {
+      window.URL.revokeObjectURL(video.src);
+
+      if (video.duration > 120) {
+        alert('Please upload a video under 2 minutes (120 seconds)');
+        return;
+      }
+
+      selectedFile = file;
+      showVideoPreview(file);
+    };
+
+    video.src = URL.createObjectURL(file);
+  }
+
+  function showVideoPreview(file) {
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoPreview = document.getElementById('videoPreview');
+
+    videoPlayer.src = URL.createObjectURL(file);
+    videoPreview.style.display = 'block';
+  }
+
+  document.getElementById('NewQuestionBtn').addEventListener('click', (e) => {
+
+    resetApp();
+  })
+
+  // ===== ANALYZE VIDEO =====
+  document.getElementById('analyzeBtn').addEventListener('click', async () => {
+    if (!selectedFile) return;
+
+    // Show analyzing section
+    document.getElementById('uploadSection').style.display = 'none';
+    document.getElementById('analyzingSection').style.display = 'block';
+
+    try {
+
+      // Real API call
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      const API_URL = 'https://rolanda-masonic-renownedly.ngrok-free.dev/analyze-tech-interview';
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: formData,
+        headers:{
+          "ngrok-skip-browser-warning" : "true"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      displayFeedback(data);
+    }
+    catch (error) {
+      alert('Error analyzing video: ' + error.message);
+      resetApp();
+    }
+  });
+
+
+  // ===== DISPLAY FEEDBACK =====
+  function displayFeedback(data) {
+    document.getElementById('analyzingSection').style.display = 'none';
+    document.getElementById('feedbackSection').style.display = 'block';
+
+    // Build feedback content
+    let feedbackHTML = '';
+
+    // Overall Score
+    const score = data.overallScore || data.score || 75;
+    document.getElementById('scoreCircle').textContent = score;
+    document.getElementById('scoreCircle').style.background =
+      score >= 80 ? '#2ecc71' : score >= 60 ? '#f39c12' : '#e74c3c';
+    document.getElementById('scoreCircle').style.color = 'white';
+    const calculatedScore = calculateOverallScore(data.metrics, data.strengths, data.improvements);
+    document.getElementById('scoreCircle').textContent = calculatedScore;
+
+
+    // Metrics
+    if (data.metrics) {
+      feedbackHTML += '<div class="feedback-item">';
+      feedbackHTML += '<h3>Speech Metrics</h3>';
+
+      if (data.metrics.wordsPerMinute) {
+        feedbackHTML += `<div class="metric">
+                        <span class="metric-label">Speaking Pace</span>
+                        <span class="metric-value">${data.metrics.wordsPerMinute} WPM</span>
+                    </div>`;
+      }
+
+      if (data.metrics.fillerWords !== undefined) {
+        feedbackHTML += `<div class="metric">
+                        <span class="metric-label">Filler Words</span>
+                        <span class="metric-value">${data.metrics.fillerWords}</span>
+                    </div>`;
+      }
+
+      if (data.metrics.pauseCount !== undefined) {
+        feedbackHTML += `<div class="metric">
+                        <span class="metric-label">Pauses</span>
+                        <span class="metric-value">${data.metrics.pauseCount}</span>
+                    </div>`;
+      }
+
+      feedbackHTML += '</div>';
+    }
+
+    // Strengths
+    if (data.strengths && data.strengths.length > 0) {
+      feedbackHTML += '<div class="feedback-item" style="border-left-color: #2ecc71;">';
+      feedbackHTML += '<h3>What You Did Well</h3>';
+      data.strengths.forEach(strength => {
+        feedbackHTML += `<p>• ${strength}</p>`;
+      });
+      feedbackHTML += '</div>';
+    }
+
+    // Areas for Improvement
+    if (data.improvements && data.improvements.length > 0) {
+      feedbackHTML += '<div class="feedback-item" style="border-left-color: #f39c12;">';
+      feedbackHTML += '<h3>Areas to Improve</h3>';
+      data.improvements.forEach(improvement => {
+        feedbackHTML += `<p>• ${improvement}</p>`;
+      });
+      feedbackHTML += '</div>';
+    }
+
+    // Tips
+    if (data.tips && data.tips.length > 0) {
+      feedbackHTML += '<div class="tip">';
+      feedbackHTML += '<strong>Tips to Practice:</strong><br>';
+      data.tips.forEach(tip => {
+        feedbackHTML += `<p>• ${tip}</p>`;
+      });
+      feedbackHTML += '</div>';
+    }
+
+    document.getElementById('feedbackContent').innerHTML = feedbackHTML;
+  }
+
+  function calculateOverallScore(metrics, strengths, improvements) {
+
+    let score = 50;
+
+    if(metrics.wordsPerMinute) {
+      const wpm = metrics.wordsPerMinute;
+      score += 20;
+      const distanceFrom140 = Math.abs(140 - wpm);
+      const distanceFrom160 = Math.abs(wpm - 160);
+      const minDistance = Math.min(distanceFrom140, distanceFrom160);
+      score -= minDistance * 0.5;
+    }
+
+
+    if(metrics.pauseCount !== undefined) {
+      score += 10;
+      score -= metrics.pauseCount*2;
+    }
+
+    if(metrics.fillerWords !== undefined) {
+      score += 10;
+      score -= metrics.fillerWords*2;
+    }
+
+    const ratio = strengths.length/improvements.length;
+    score +=  6*ratio;
+
+    return Math.max(0, Math.min(100, Math.round(score)));
+  }
+
+  async function fetchGeneratedQuestion() {
+    const loadingEl = document.getElementById('displayQuestion');
+    loadingEl.innerText = "AI is thinking of a question...";
+
+    try {
+      const response = await fetch('https://rolanda-masonic-renownedly.ngrok-free.dev/generate-technical-question', {
+        headers: { "ngrok-skip-browser-warning": "true" }
+      });
+      const data = await response.json();
+      currentQuestion = data.question; // Store this to send back during /analyze
+      document.getElementById('displayQuestion').innerText = currentQuestion;
+    } catch (error) {
+      document.getElementById('displayQuestion').innerText = "Error getting question. Try again!";
+    }
+  }
+  // ===== RESET APP =====
+  function resetApp() {
+    selectedFile = null;
+    fetchGeneratedQuestion();
+    document.getElementById('videoInput').value = '';
+    document.getElementById('videoPreview').style.display = 'none';
+    document.getElementById('uploadSection').style.display = 'block';
+    document.getElementById('analyzingSection').style.display = 'none';
+    document.getElementById('feedbackSection').style.display = 'none';
+  }
+
+  window.addEventListener('DOMContentLoaded', fetchGeneratedQuestion);
+
+</script>
+</body>
+</html>

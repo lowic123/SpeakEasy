@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakEasy</title>
+</head>
+<body>
+
+<h1>Welcome to SpeakEasy</h1>
+  <h2>Video Upload</h2>
+    <p>Upload a video of your presentation to get instant AI feedback on your pace, tone, and clarity.</p>
+    <p>*File must be in mp4 Format*</p>
+
+<input type="file" accept="video/*">
+
+<button type="button">Analyze Speech</button>
+
+<div id="results"></div>
+
+<script>
+  const videoInput = document.getElementById('videoInput');
+  const submitBtn = document.getElementById('submitBtn');
+  const fileInfo = document.getElementById('fileInfo');
+
+  // FIX: Clear the input on click so selecting the SAME file triggers the change event
+  videoInput.addEventListener('click', () => {
+    videoInput.value = null;
+  });
+
+  videoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0]; //
+
+    if (file) {
+      // 1. Calculate and show size
+      const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+      // 2. Display metadata instantly
+      fileInfo.innerHTML = `<strong>File:</strong> ${file.name} | <strong>Size:</strong> ${fileSizeMB} MB`;
+
+      // 3. Add the required warning text
+      fileInfo.innerHTML += `<br>⚠️ Warning: Max 2 min. Verbal analysis only.`;
+
+      // 4. Enable the button as per Step 2 rules
+      submitBtn.disabled = false;
+
+      console.log("File detected:", file.name); // Check your browser console (F12) to see this
+    } else {
+      fileInfo.innerText = "Max 2 min · Verbal analysis only";
+      submitBtn.disabled = true;
+    }
+  });
+</script>
+
+</body>
+</html>
