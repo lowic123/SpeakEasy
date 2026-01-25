@@ -276,33 +276,6 @@
     .reset-btn:hover {
       background: #7f8c8d;
     }
-
-
-    .demo-mode {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .demo-mode label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      color: #856404;
-    }
-
-    .demo-mode input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -324,12 +297,9 @@
     <p class="tagline">Get instant feedback on your speech and presentation</p>
   </div>
 
-
-
   <div class ="subheader">
     <h2>Basic Analysis</h2>
   </div>
-
 
   <div class="upload-section" id="uploadSection">
     <div class="upload-area" id="uploadArea">
@@ -366,7 +336,6 @@
 </div>
 
 <script>
-
 
   let selectedFile = null;
 
@@ -439,9 +408,6 @@
     document.getElementById('analyzingSection').style.display = 'block';
 
     try {
-
-
-        // Real API call
         const formData = new FormData();
         formData.append('file', selectedFile);
 
