@@ -93,8 +93,8 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
         return Results.BadRequest("Invalid data");
     var form = await request.ReadFormAsync();
     var file = form.Files.FirstOrDefault();
-    var question = form["question"].ToString();
-    Console.WriteLine($"DEBUG: Received Question = '{question}'");
+    //var question = form["question"].ToString();
+    //Console.WriteLine($"DEBUG: Received Question = '{question}'");
 
     if (file == null || file.Length == 0)
         return Results.BadRequest("Nothing uploaded");
@@ -183,25 +183,25 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
 
 
         string systemPrompt = isInterview ? isTechInterview ?
-                                $"This is was the question asked: {question}" +
+                                //$"This is was the question asked: {question}" +
                                 "You are a professional software engineering interview coach. Analyze the user's answer to a technical interview question and provide feedback in STRICT JSON format." +
                                 "Focus on feedback specific to this solution, not generic programming advice." +
                                 "If the user does not answer the question, or has an answer too derived from the original question,do not evaluate any strengths" +
                                 "First infer the problem-solving approach used (e.g., brute force, optimized, recursive, iterative) and evaluate strengths and weaknesses relative to the expected or optimal solution." +
                                 "Assess correctness, efficiency, clarity of explanation, and trade-offs discussed, making the feedback personalized to the problem and approach chosen." +
                                 "Only mention filler words if there are more than 3; if there are few or none, include this as a strength." +
-                                "If the solution or explanation is incomplete, missing edge cases, or lacks complexity analysis, mark those categories as ‘insufficient data’ instead of guessing and do not add any strengths." +
+                                "If the solution or explanation is incomplete, missing edge cases, or lacks complexity analysis, mark those categories as ï¿½insufficient dataï¿½ instead of guessing and do not add any strengths." +
                                 "If the speaking pace is significantly above 160 words per minute or below 140 words per minute, mention it in the tips category." +
                                 "Mention stucture as a strength is th answer is well structured"
                                :
-                               $"This is was the question asked: {question}" +
+                               //$"This is was the question asked: {question}" +
                               "You are a professional interview coach. Analyze the user's answer to a behavioral interview question and provide feedback in STRICT JSON format." +
                               "Focus on feedback specific to this answer, not generic interview advice." +
                               "If the user does not answer the question, or has an answer too derived from the original question,do not evaluate any strengths" +
                               "Only mention filler words if there are more than 3; if there are few or none, include this as a strength." +
                               "First infer the answer structure (e.g., STAR, narrative, unstructured) and evaluate strengths and weaknesses relative to that structure." +
                               "Assess clarity, relevance, and impact of the example used, making the feedback personalized to the scenario described." +
-                              "If the answer is too short or missing key elements (e.g., result or reflection), mark that category as ‘insufficient data’ instead of guessing." +
+                              "If the answer is too short or missing key elements (e.g., result or reflection), mark that category as ï¿½insufficient dataï¿½ instead of guessing." +
                               "If the speaking pace is significantly above 160 words per minute or below 140 words per minute, mention it in the tips category."
                               :
                              "You are a professional speech coach. Analyze the user's speech and provide feedback in STRICT JSON format." +
@@ -210,10 +210,11 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
                               "Only talk about filler words when there are more than 3, consider adding the lack of filler words to the strengths" +
                               "Give some strengths and weaknesses based on the nature of the speech so that it is more personalized" +
                               "First infer the speech type (e.g., persuasive, informative, narrative, casual) and evaluate strengths and weaknesses relative to that type." +
-                              "If the speech is too short to evaluate a category, mark it as ‘insufficient data’ instead of guessing." +
+                              "If the speech is too short to evaluate a category, mark it as ï¿½insufficient dataï¿½ instead of guessing." +
                               "If the words per minute are too high (significantly higher than 160) or too low (significantly lower than 140), mention it in the tips category";
 
-        string userPrompt = (isInterview ? $@"The question asked was {question}" : "") +
+        string userPrompt = 
+        //(isInterview ? $@"The question asked was {question}" : "") +
             $@"
         Transcript: {transcription.Text}
         WPM: {words.Length / vidLength}
@@ -235,7 +236,7 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
 
         return Results.Ok(new
         {
-            Message = $"analysis complete : {question}",
+            Message = $"analysis complete : ",
             Transcript = string.IsNullOrWhiteSpace(transcription.Text) ? "Could not transcribe audio" : transcription.Text,
             metrics = new
             {
@@ -266,7 +267,6 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
 
 async Task<double> GetVideoDuration(string filePath)
 {
-    var robePath = @"C:\Users\Owner\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffprobe.exe";
     var startInfo = new ProcessStartInfo
     {
         FileName = "ffprobe",

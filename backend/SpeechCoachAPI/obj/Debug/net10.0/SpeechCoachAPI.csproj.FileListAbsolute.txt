@@ -78,7 +78,6 @@ C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\staticwebasset
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\SpeechCo.07B42D12.Up2Date
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\SpeechCoachAPI.dll
 C:\Users\Owner\SpeakEasy\backend\SpeechCoachAPI\obj\Debug\net10.0\refint\SpeechCoachAPI.dll

@@ -310,7 +310,7 @@
 
     <div class="video-preview" id="videoPreview">
       <video id="videoPlayer" controls></video>
-      <button class="btn" id="analyzeBtn">Analyze My Speech</button>
+      <button type="button" class="btn" id="analyzeBtn">Analyze My Speech</button>
     </div>
   </div>
 
@@ -336,6 +336,9 @@
 </div>
 
 <script>
+  window.addEventListener('beforeunload', () => {
+    console.log('PAGE RELOADING');
+});
 
   let selectedFile = null;
 
@@ -400,7 +403,9 @@
   }
 
   // ===== ANALYZE VIDEO =====
-  document.getElementById('analyzeBtn').addEventListener('click', async () => {
+  document.getElementById('analyzeBtn').addEventListener('click', async (e) => {
+    console.log("Analyze clicked"); 
+    e.preventDefault();
     if (!selectedFile) return;
 
     // Show analyzing section
@@ -411,15 +416,13 @@
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const API_URL = 'https://rolanda-masonic-renownedly.ngrok-free.dev/analyze';
+        const API_URL = 'http://localhost:5289/analyze';
 
         const response = await fetch(API_URL, {
           method: 'POST',
           body: formData,
-          headers:{
-            "ngrok-skip-browser-warning" : "true"
-          }
         });
+
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

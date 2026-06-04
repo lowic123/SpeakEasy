@@ -461,7 +461,7 @@
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const API_URL = 'https://rolanda-masonic-renownedly.ngrok-free.dev/analyze-tech-interview';
+      const API_URL = 'http://localhost:5289/analyze-tech-interview';
 
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -600,7 +600,7 @@
     loadingEl.innerText = "AI is thinking of a question...";
 
     try {
-      const response = await fetch('https://rolanda-masonic-renownedly.ngrok-free.dev/generate-technical-question', {
+      const response = await fetch('http://localhost:5289/generate-technical-question', {
         headers: { "ngrok-skip-browser-warning": "true" }
       });
       const data = await response.json();
