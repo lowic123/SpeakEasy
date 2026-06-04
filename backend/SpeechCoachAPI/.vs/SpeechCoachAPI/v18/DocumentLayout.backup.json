@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Owner\\HACKATHON2026\\SpeechCoachAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\Owner\\SpeakEasy\\backend\\SpeechCoachAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A4607BD5-E2F4-1317-EB42-52539090686F}|SpeechCoachAPI.csproj|c:\\users\\owner\\hackathon2026\\speechcoachapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A4607BD5-E2F4-1317-EB42-52539090686F}|SpeechCoachAPI.csproj|c:\\users\\owner\\speakeasy\\backend\\speechcoachapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A4607BD5-E2F4-1317-EB42-52539090686F}|SpeechCoachAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Owner\\HACKATHON2026\\SpeechCoachAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\SpeakEasy\\backend\\SpeechCoachAPI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Owner\\HACKATHON2026\\SpeechCoachAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Owner\\SpeakEasy\\backend\\SpeechCoachAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAMUAAAAAAAAAAAAQwN4AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T16:57:21.264Z",
               "EditorCaption": ""

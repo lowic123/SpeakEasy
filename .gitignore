@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+
+# Temp files (your audio/video uploads)
+Temp/
+*.wav
+*.mp4
+*.webm
+
+# Environment / secrets
+.env
+.env.*
