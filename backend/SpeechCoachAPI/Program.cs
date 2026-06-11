@@ -89,6 +89,10 @@ app.Run();
 
 async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, ChatClient chat, bool isInterview, bool isTechInterview)
 {
+    var clientKey = request.Headers["x-api-key"].ToString();
+    if (clientKey != "superdupertopsecretstring")
+        return Results.Unauthorized();
+
     if (!request.HasFormContentType)
         return Results.BadRequest("Invalid data");
     var form = await request.ReadFormAsync();
