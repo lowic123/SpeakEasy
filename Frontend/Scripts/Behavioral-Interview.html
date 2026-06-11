@@ -476,8 +476,8 @@
         const response = await fetch(API_URL, {
           method: 'POST',
           body: formData,
-          headers:{
-            "ngrok-skip-browser-warning" : "true"
+          headers : {
+            "x-api-key": "superdupertopsecretstring"
           }
         });
 
@@ -611,12 +611,15 @@
 
     try {
       const response = await fetch('http://localhost:5289/generate-behavioural-question', {
-        headers: { "ngrok-skip-browser-warning": "true" }
+        headers : {
+            "x-api-key": "superdupertopsecretstring"
+          }
       });
       const data = await response.json();
       currentQuestion = data.question; // Store this to send back during /analyze
       document.getElementById('displayQuestion').innerText = currentQuestion;
     } catch (error) {
+      console.log(error)
       document.getElementById('displayQuestion').innerText = "Error getting question. Try again!";
     }
   }

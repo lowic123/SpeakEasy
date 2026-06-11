@@ -421,6 +421,9 @@
         const response = await fetch(API_URL, {
           method: 'POST',
           body: formData,
+          headers : {
+            "x-api-key": "superdupertopsecretstring"
+          }
         });
 
 

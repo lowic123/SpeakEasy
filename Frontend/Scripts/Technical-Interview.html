@@ -466,9 +466,9 @@
       const response = await fetch(API_URL, {
         method: 'POST',
         body: formData,
-        headers:{
-          "ngrok-skip-browser-warning" : "true"
-        }
+        headers : {
+            "x-api-key": "superdupertopsecretstring"
+          }
       });
 
       if (!response.ok) {
@@ -601,7 +601,9 @@
 
     try {
       const response = await fetch('http://localhost:5289/generate-technical-question', {
-        headers: { "ngrok-skip-browser-warning": "true" }
+        headers : {
+            "x-api-key": "superdupertopsecretstring"
+          }
       });
       const data = await response.json();
       currentQuestion = data.question; // Store this to send back during /analyze

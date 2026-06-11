@@ -55,13 +55,21 @@ app.MapGet("/", () => "Hello World!");
 app.MapGet("/health", () => Results.Ok("ok"));
 
 //generate behavioural question
-app.MapGet("/generate-behavioural-question", async ([FromServices] ChatClient chat) => {
+app.MapGet("/generate-behavioural-question", async (HttpRequest request, [FromServices] ChatClient chat) => {
+    var clientKey = request.Headers["x-api-key"].ToString();
+    var validKey = Environment.GetEnvironmentVariable("CLIENT_API_KEY");
+    if (!clientKey.Equals(validKey))
+        return Results.Unauthorized();
     var result = await chat.CompleteChatAsync("Generate one challenging behavioral interview question. Only professionally answer with the question.");
     return Results.Ok(new { question = result.Value.Content[0].Text });
 });
 
 //generate tech question
-app.MapGet("/generate-technical-question", async ([FromServices] ChatClient chat) => {
+app.MapGet("/generate-technical-question", async (HttpRequest request, [FromServices] ChatClient chat) => {
+    var clientKey = request.Headers["x-api-key"].ToString();
+    var validKey = Environment.GetEnvironmentVariable("CLIENT_API_KEY");
+    if (!clientKey.Equals(validKey))
+        return Results.Unauthorized();
     var result = await chat.CompleteChatAsync("Generate one challenging technical interview question for 1st or 2nd year software engineers. Only professionally answer with the question.");
     return Results.Ok(new { question = result.Value.Content[0].Text });
 });
@@ -90,7 +98,8 @@ app.Run();
 async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, ChatClient chat, bool isInterview, bool isTechInterview)
 {
     var clientKey = request.Headers["x-api-key"].ToString();
-    if (clientKey != "superdupertopsecretstring")
+    var validKey = Environment.GetEnvironmentVariable("CLIENT_API_KEY");
+    if (!clientKey.Equals(validKey))
         return Results.Unauthorized();
 
     if (!request.HasFormContentType)
