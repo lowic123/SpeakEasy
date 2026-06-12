@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpeechCoachAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be12f14654ae1d2bdab183a514b8a680de34ae95")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2697fe6f77418c22317ba956d50cc8d92fe8cd3")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpeechCoachAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpeechCoachAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

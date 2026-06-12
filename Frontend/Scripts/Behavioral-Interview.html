@@ -469,6 +469,7 @@
         // Real API call
         const formData = new FormData();
         formData.append('file', selectedFile);
+        formData.append('question', currentQuestion);
 
 
         const API_URL = 'http://localhost:5289/analyze-interview';

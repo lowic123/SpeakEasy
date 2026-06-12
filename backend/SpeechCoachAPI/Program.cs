@@ -93,6 +93,10 @@ app.MapPost("/analyze", async (HttpRequest request, [FromServices] AudioClient a
 });
     
 
+Directory.CreateDirectory("Temp/videos");
+Directory.CreateDirectory("Temp/audios");
+
+
 app.Run();
 
 async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, ChatClient chat, bool isInterview, bool isTechInterview)
@@ -106,28 +110,17 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
         return Results.BadRequest("Invalid data");
     var form = await request.ReadFormAsync();
     var file = form.Files.FirstOrDefault();
-    //var question = form["question"].ToString();
-    //Console.WriteLine($"DEBUG: Received Question = '{question}'");
+    var question = form["question"].ToString();
+    Console.WriteLine($"DEBUG: Received Question = '{question}'");
 
     if (file == null || file.Length == 0)
         return Results.BadRequest("Nothing uploaded");
 
-
-    //Directory.CreateDirectory("Temp/videos");
-    //var videoPath = Path.Combine("Temp/videos", Guid.NewGuid() + Path.GetExtension(file.FileName));
-    //{
-    //    using var stream = File.Create(videoPath);
-    //    await file.CopyToAsync(stream);
-    //}
-
-    //Directory.CreateDirectory("Temp/audios");
-    //string audioPath = Path.Combine("Temp/audios", Guid.NewGuid() + ".wav");
     string videoPath = Path.Combine("Temp/videos", Guid.NewGuid() + Path.GetExtension(file.FileName));
     string audioPath = Path.Combine("Temp/audios", Guid.NewGuid() + ".wav");
 
     try
     {
-        Directory.CreateDirectory("Temp/videos");
         using (var stream = File.Create(videoPath))
             await file.CopyToAsync(stream);
 
@@ -196,7 +189,7 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
 
 
         string systemPrompt = isInterview ? isTechInterview ?
-                                //$"This is was the question asked: {question}" +
+                                $"This is was the question asked: {question}" +
                                 "You are a professional software engineering interview coach. Analyze the user's answer to a technical interview question and provide feedback in STRICT JSON format." +
                                 "Focus on feedback specific to this solution, not generic programming advice." +
                                 "If the user does not answer the question, or has an answer too derived from the original question,do not evaluate any strengths" +
@@ -207,7 +200,7 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
                                 "If the speaking pace is significantly above 160 words per minute or below 140 words per minute, mention it in the tips category." +
                                 "Mention stucture as a strength is th answer is well structured"
                                :
-                               //$"This is was the question asked: {question}" +
+                               $"This is was the question asked: {question}" +
                               "You are a professional interview coach. Analyze the user's answer to a behavioral interview question and provide feedback in STRICT JSON format." +
                               "Focus on feedback specific to this answer, not generic interview advice." +
                               "If the user does not answer the question, or has an answer too derived from the original question,do not evaluate any strengths" +
@@ -227,7 +220,7 @@ async Task<IResult> ProcessVoiceLogic(HttpRequest request, AudioClient audio, Ch
                               "If the words per minute are too high (significantly higher than 160) or too low (significantly lower than 140), mention it in the tips category";
 
         string userPrompt = 
-        //(isInterview ? $@"The question asked was {question}" : "") +
+        (isInterview ? $@"The question asked was {question}" : "") +
             $@"
         Transcript: {transcription.Text}
         WPM: {words.Length / vidLength}
